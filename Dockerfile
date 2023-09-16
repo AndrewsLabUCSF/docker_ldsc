@@ -7,17 +7,19 @@ LABEL maintainer="shea.andrews@ucsf.edu"
 # Set environment variables
 ENV LDSC_DIR /ldsc
 
-# Install necessary dependencies
-RUN apt-get update && apt-get install -y \
-    git \
-    gcc \
-    g++ \
-    zlib1g-dev \
-    libbedtools2-dev \
-    bedtools \
-    libbz2-dev \
-    liblzma-dev \
-    && rm -rf /var/lib/apt/lists/*
+# Update and upgrade
+RUN apt-get update && apt-get upgrade -y
+
+# Install individual system dependencies and clean up
+RUN apt-get install -y git && apt-get clean
+RUN apt-get install -y gcc && apt-get clean
+RUN apt-get install -y g++ && apt-get clean
+RUN apt-get install -y zlib1g-dev && apt-get clean
+RUN apt-get install -y libbedtools2-dev && apt-get clean
+RUN apt-get install -y bedtools && apt-get clean
+RUN apt-get install -y libbz2-dev && apt-get clean
+RUN apt-get install -y liblzma-dev && apt-get clean
+
 
 # Navigate to the LDSC directory and install Python dependencies
 WORKDIR $LDSC_DIR
