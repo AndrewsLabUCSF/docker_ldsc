@@ -15,12 +15,19 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Clone the LDSC repository
-RUN git clone https://github.com/bulik/ldsc.git $LDSC_DIR
-
 # Navigate to the LDSC directory and install Python dependencies
 WORKDIR $LDSC_DIR
-RUN pip install -r requirements.txt
+RUN pip install \
+    bitarray==0.8 \
+    nose==1.3 \
+    pybedtools==0.7 \
+    numpy==1.11 \
+    scipy==0.18 \
+    pandas==0.20 \
+    scikit-learn==0.18
+
+# Clone the LDSC repository
+RUN git clone https://github.com/bulik/ldsc.git $LDSC_DIR
 
 # Make the LDSC scripts executable
 RUN chmod +x *.py
