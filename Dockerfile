@@ -17,14 +17,31 @@ RUN apt-get update && apt-get install -y \
 
 # Navigate to the LDSC directory and install Python dependencies
 WORKDIR $LDSC_DIR
-RUN pip install \
-    bitarray==0.8 \
-    nose==1.3 \
-    pybedtools==0.7 \
-    numpy==1.11 \
-    scipy==0.18 \
-    pandas==0.20 \
-    scikit-learn==0.18
+
+# Check pip version
+RUN pip --version
+
+# Install Python dependencies one by one
+RUN pip install bitarray==0.8 && \
+    pip show bitarray
+
+RUN pip install nose==1.3 && \
+    pip show nose
+
+RUN pip install pybedtools==0.7 && \
+    pip show pybedtools
+
+RUN pip install numpy==1.11 && \
+    pip show numpy
+
+RUN pip install scipy==0.18 && \
+    pip show scipy
+
+RUN pip install pandas==0.20 && \
+    pip show pandas
+
+RUN pip install scikit-learn==0.18 && \
+    pip show scikit-learn
 
 # Clone the LDSC repository
 RUN git clone https://github.com/bulik/ldsc.git $LDSC_DIR
