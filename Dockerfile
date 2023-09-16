@@ -11,6 +11,11 @@ ENV LDSC_DIR /ldsc
 RUN apt-get update && apt-get upgrade -y
 
 # Install individual system dependencies and clean up
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libcurl4-openssl-dev \
+    && rm -rf /var/lib/apt/lists/*
+    
 RUN apt-get install -y git && apt-get clean
 RUN apt-get install -y gcc && apt-get clean
 RUN apt-get install -y g++ && apt-get clean
