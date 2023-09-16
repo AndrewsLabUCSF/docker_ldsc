@@ -13,6 +13,10 @@ RUN apt-get update && apt-get install -y \
     gcc \
     g++ \
     zlib1g-dev \
+    libbedtools2-dev \
+    bedtools \
+    libbz2-dev \
+    liblzma-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Navigate to the LDSC directory and install Python dependencies
@@ -28,8 +32,10 @@ RUN pip install bitarray==0.8 && \
 RUN pip install nose==1.3 && \
     pip show nose
 
-RUN pip install pybedtools==0.7 && \
-    pip show pybedtools
+RUN pip install pybedtools==0.7 || (echo "Failed to install pybedtools" && exit 1)
+
+# RUN pip install pybedtools==0.7 && \
+#     pip show pybedtools
 
 RUN pip install numpy==1.11 && \
     pip show numpy
